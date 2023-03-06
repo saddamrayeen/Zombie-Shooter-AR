@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-public class ARPlaneDetector : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     ARRaycastManager _rayManager;
     List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -19,6 +19,13 @@ public class ARPlaneDetector : MonoBehaviour
     GameObject objectToBeSpawned;
     GameObject spawnedObject = null;
 
+    [Header("Zombie")]
+
+    [SerializeField]
+    GameObject zombieSpawner;
+
+    private GameObject spawnedZombieSpawner;
+ 
     private void Awake()
     {
         // finding raycast manager from the scene
@@ -92,6 +99,12 @@ public class ARPlaneDetector : MonoBehaviour
             {
                 spawnedObject = Instantiate(
                     objectToBeSpawned,
+                    _rayPosition.position,
+                    _rayPosition.rotation
+                );
+
+                 spawnedZombieSpawner = Instantiate(
+                    zombieSpawner,
                     _rayPosition.position,
                     _rayPosition.rotation
                 );
